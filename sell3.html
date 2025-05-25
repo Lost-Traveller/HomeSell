@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settlement Date Optimizer | HomeSell</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f8fb;
+      color: #223;
+    }
+    .main-nav {
+      display: flex;
+      background: #1b4e8a;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      justify-content: center;
+    }
+    .main-nav a {
+      display: block;
+      color: #fff;
+      padding: 18px 24px;
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: #68a6f6;
+      color: #fff;
+    }
+    .container {
+      max-width: 850px;
+      margin: 36px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px #0001;
+      padding: 40px 30px;
+    }
+    h1 {
+      font-size: 2.2em;
+      color: #1b4e8a;
+      margin-bottom: 6px;
+    }
+    .section-header {
+      font-size: 1.4em;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      color: #ff7f50;
+    }
+    .sell-subnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+      margin-bottom: 30px;
+    }
+    .sell-subnav a {
+      padding: 10px 14px;
+      background-color: #e4eefa;
+      color: #1b4e8a;
+      font-weight: 600;
+      border-radius: 5px;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .sell-subnav a:hover,
+    .sell-subnav a.active {
+      background: #68a6f6;
+      color: #fff;
+      border-color: #1b4e8a;
+    }
+    .explanation {
+      font-size: 1.11em;
+      margin-bottom: 22px;
+      line-height: 1.6;
+      color: #244e7a;
+      background: #e4eefa;
+      border-radius: 8px;
+      padding: 18px 16px;
+      margin-top: 12px;
+    }
+    form {
+      background-color: #f8fafc;
+      padding: 22px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      margin-bottom: 22px;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: 600;
+      color: #1b4e8a;
+    }
+    input[type="number"], input[type="date"] {
+      width: 220px;
+      padding: 8px;
+      margin-top: 8px;
+      border: 1.5px solid #b9cfe7;
+      border-radius: 4px;
+      font-size: 1em;
+      background: #f7f9fb;
+      color: #223;
+    }
+    small {
+      color: #888;
+      display: block;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+    .calculate-btn {
+      margin-top: 22px;
+      padding: 12px 26px;
+      background-color: #ff7f50;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 10px #ff7f5022;
+      letter-spacing: 0.5px;
+    }
+    .calculate-btn:hover {
+      background-color: #ff9b73;
+    }
+    .result {
+      display: none;
+      margin-top: 26px;
+      padding: 20px;
+      background-color: #e4eefa;
+      border-left: 8px solid #ff7f50;
+      border-radius: 8px;
+      font-size: 1.13em;
+      color: #223;
+      box-shadow: 0 2px 10px #0001;
+    }
+    .result strong {
+      color: #ff7f50;
+    }
+    .interpretation {
+      margin-top: 16px;
+      font-size: 1em;
+      color: #1b4e8a;
+    }
+    @media(max-width: 768px){
+      body { font-size: 14px; }
+      input[type="number"], input[type="date"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Main Navigation -->
+<ul class="main-nav">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="decide.html">Decide</a></li>
+  <li><a href="prepare.html">Prepare</a></li>
+  <li><a href="market.html">Market</a></li> 
+  <li><a href="list.html">List</a></li> 
+  <li><a href="openhome.html">Open Home</a></li>
+  <li><a href="negotiate.html">Negotiate</a></li>
+  <li><a href="sell.html"  class="active">Sell</a></li>  
+  <li><a href="move.html">Move</a></li>
+</ul>
+
+<div class="container">
+  <h1>Settlement Date Optimizer</h1>
+  <div class="explanation">
+    <strong>Find the best date to settle your home sale.</strong><br>
+    Enter your potential settlement date and a few key factors below. We'll highlight what to watch out for—like rates payments, body corp fees, school holidays, and peak moving costs—so you can avoid surprises and pick a date that works for you and your buyers.
+  </div>
+
+  <!-- Sub-navigation for the sell section -->
+  <div class="sell-subnav">
+    <a href="sell1.html">Contract</a>
+    <a href="sell2.html">Paperwork</a>
+    <a class="active" href="sell3.html">Settlement Date</a>
+    <a href="sell4.html">Sale Methods Comparisons</a>
+    <a href="sell5.html">Close & Move</a>
+  </div>
+
+  <!-- Calculator Form -->
+  <form id="settleForm" onsubmit="return false;">
+    <label for="settlementDate">1. Target Settlement Date:</label>
+    <input type="date" id="settlementDate" required />
+    <small>Choose the date you want the sale to be final.</small>
+
+    <label for="nextRatesDue">2. Next Council Rates Due Date:</label>
+    <input type="date" id="nextRatesDue" required />
+    <small>When is your next council rates payment due? (Check your last rates bill.)</small>
+
+    <label for="bodyCorporateDue">3. Next Body Corporate Fees Due Date (if applicable):</label>
+    <input type="date" id="bodyCorporateDue" />
+    <small>If you pay body corp fees, when is your next payment due? (Leave blank if not applicable.)</small>
+
+    <label for="schoolHoliday">4. Next School Holiday Start Date:</label>
+    <input type="date" id="schoolHoliday" />
+    <small>If buyers might have school-age children, when do school holidays start?</small>
+
+    <label for="isPeakSeason">5. Is this a peak moving season?</label>
+    <select id="isPeakSeason">
+      <option value="yes">Yes (higher moving costs)</option>
+      <option value="no">No (standard costs)</option>
+    </select>
+    <small>Summer and end-of-year periods are often more expensive for moving companies.</small>
+
+    <button class="calculate-btn" onclick="calculateOptimalDate()">Check Date Factors</button>
+  </form>
+
+  <!-- Result Display -->
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  function calculateOptimalDate() {
+    // Get user inputs
+    const settlementDate = document.getElementById('settlementDate').value;
+    const nextRatesDue = document.getElementById('nextRatesDue').value;
+    const bodyCorporateDue = document.getElementById('bodyCorporateDue').value;
+    const schoolHoliday = document.getElementById('schoolHoliday').value;
+    const isPeakSeason = document.getElementById('isPeakSeason').value;
+
+    if (!settlementDate || !nextRatesDue) {
+      alert("Please fill in at least your settlement date and next rates due date.");
+      return;
+    }
+
+    // Convert dates to objects
+    const sDate = new Date(settlementDate);
+    const rDate = new Date(nextRatesDue);
+
+    let resultText = `<strong>Here's what to consider for your chosen settlement date (${settlementDate}):</strong><ul style="margin-top:10px;">`;
+
+    // 1. Rates overlap check
+    if (
+      sDate.getTime() > rDate.getTime() &&
+      (sDate.getTime() - rDate.getTime()) / (1000*3600*24) < 30
+    ) {
+      resultText += `<li><strong>Warning:</strong> Your settlement date is soon after your rates are due. You may need to pay the full period and seek a refund from the buyer, or split the amount.</li>`;
+    } else if (
+      sDate.getTime() < rDate.getTime() &&
+      (rDate.getTime() - sDate.getTime()) / (1000*3600*24) < 30
+    ) {
+      resultText += `<li><strong>Good timing:</strong> You're settling just before rates are due. You'll avoid paying the next bill.</li>`;
+    } else {
+      resultText += `<li>Check with your lawyer how rates are apportioned for settlement date.</li>`;
+    }
+
+    // 2. Body corp fee check
+    if (bodyCorporateDue) {
+      const bcDate = new Date(bodyCorporateDue);
+      if (
+        sDate.getTime() > bcDate.getTime() &&
+        (sDate.getTime() - bcDate.getTime()) / (1000*3600*24) < 30
+      ) {
+        resultText += `<li><strong>Note:</strong> You've scheduled settlement just after a body corporate fee is due; you might pay and need to be reimbursed.</li>`;
+      } else if (
+        sDate.getTime() < bcDate.getTime() &&
+        (bcDate.getTime() - sDate.getTime()) / (1000*3600*24) < 30
+      ) {
+        resultText += `<li><strong>Good timing:</strong> You're settling before the next body corporate fee is due.</li>`;
+      }
+    }
+
+    // 3. School holiday check
+    if (schoolHoliday) {
+      const shDate = new Date(schoolHoliday);
+      if (
+        Math.abs((shDate.getTime() - sDate.getTime()) / (1000*3600*24)) < 14
+      ) {
+        resultText += `<li><strong>Tip:</strong> Your settlement date is close to school holidays. This could be attractive to buyers with children who want to move during the break.</li>`;
+      }
+    }
+
+    // 4. Peak season
+    if (isPeakSeason === "yes") {
+      resultText += `<li><strong>Heads up:</strong> You've chosen a peak moving season. Book moving services early and expect higher costs.</li>`;
+    } else {
+      resultText += `<li>You're outside of peak season, so moving costs should be more reasonable.</li>`;
+    }
+
+    resultText += "</ul><div class='interpretation'>Use this checklist to talk with your lawyer or agent. Adjust your settlement date if you want to avoid double-paying rates or fees, or to make your sale more attractive for buyers!</div>";
+
+    // Show results
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = resultText;
+  }
+</script>
+</body>
+</html>

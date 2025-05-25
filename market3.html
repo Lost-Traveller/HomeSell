@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visual Marketing | MyHomeSellApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin:0; }
+    .container { max-width: 1200px; margin: auto; background: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar, .sub-nav-row, footer {background:#222; color:#fff;}
+    .top-bar { display: flex; align-items: center; justify-content: space-between; background: #222; padding: 0.5rem 1rem;}
+    .logo { font-size: 1.1rem; font-weight: bold; }
+    nav.primary-nav { display: flex; flex: 1; justify-content: flex-start; margin-left: 1rem;}
+    nav.primary-nav a {color: #fff; padding: 0.7rem 1.2rem; text-decoration: none; font-size: 1rem;}
+    nav.primary-nav a.active { background: #555; }
+    .login-btn { padding: 0.45rem 1.1rem; background: #0077cc; color: #fff; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 1rem; margin-left: 1rem;}
+    .sub-nav-row { display: flex; align-items: center; background: #eee; padding: 0.5rem 1rem; gap: 2rem; justify-content: flex-start;}
+    .subnav-links { display: flex; gap: 0.3rem;}
+    .subnav-links a { padding: .7rem 1.1rem; color: #333; text-decoration: none; border-radius: 3px;}
+    .subnav-links a.active { font-weight: bold; border-bottom: 2px solid #0077cc; }
+    .main-content { padding: 2rem 1rem 1.5rem 1rem; flex:1; display: flex; flex-direction: column; gap: 2rem;}
+    h1 { font-size: 2.1rem; color: #0077cc; letter-spacing: 0.5px; margin-top: 0;}
+    .intro-text { font-size: 1.18rem; color: #444; margin: 1.2rem 0 2.2rem 0;}
+    .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); padding: 1.1rem 1.2rem; margin-bottom: 1.3rem;}
+    .card h2 { font-size: 1.2rem; color: #005fa3; margin: 0 0 .7rem 0;}
+    .photo-slider { max-width: 840px; margin: 0 auto 2.2rem auto;}
+    .slider-label { font-size: 1.07rem; margin-bottom: .7rem;}
+    /* Make the before/after images much bigger */
+    .beer-slider, .beer-slider img { width: 800px; height: 400px; border-radius:10px;}
+    @media (max-width: 900px) {
+      .beer-slider, .beer-slider img { width: 100%; height: auto;}
+      .photo-slider {max-width:100%;}
+    }
+    .gallery-grid { display: flex; gap: 1rem; flex-wrap:wrap;}
+    .gallery-card { background:#fafafa; border-radius:6px; padding:1rem; box-shadow:0 2px 4px rgba(0,0,0,0.04); flex:1 1 270px; min-width:240px; }
+    .gallery-card img {max-width:100%; border-radius:4px;}
+    .gallery-card h4 {margin:.6rem 0 0.3rem 0; color:#0077cc;}
+    .gallery-card p {font-size:0.96rem;}
+    .external-link-btn {display:inline-block; background:#fff; color:#0077cc; border:1px solid #0077cc; padding:0.3rem 1rem; border-radius:4px; text-decoration:none; margin-top:.7rem;}
+    .external-link-btn:hover {background:#0077cc; color:#fff;}
+    footer { background: #222; color: #ccc; text-align: center; font-size: .9rem; padding: 1rem; margin-top: auto;}
+    @media (max-width: 900px) {.gallery-grid {flex-direction:column;}}
+  </style>
+  <!-- BeerSlider (before/after slider) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beerslider/dist/BeerSlider.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <span class="logo">MyHomeSellApp</span>
+      <nav class="primary-nav">
+        <a href="decide.html">Decide</a>
+        <a href="prepare1.html">Prepare</a>
+        <a href="market1.html" class="active">Market</a>
+        <a href="list1.html">List</a>
+        <a href="openhome1.html">OpenHome</a>
+        <a href="negotiate1.html">Negotiate</a>
+        <a href="sell1.html">Sell</a>
+        <a href="move1.html">Move</a>
+      </nav>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+    <div class="sub-nav-row">
+      <div class="subnav-links">
+        <a href="market1.html">Audience</a>
+        <a href="market2.html" class="active">Visual Marketing</a>
+        <a href="market3.html">Online</a>
+        <a href="market4.html">Traditional</a>
+        <a href="market5.html">USP</a>
+      </div>
+    </div>
+    <div class="main-content">
+      <h1>Visual Marketing for Your Wellington Home</h1>
+      <div class="intro-text">
+        Create irresistible first impressions! Here are proven, <b>DIY-friendly</b> ways to make your listing stand out visually—without breaking the bank.
+      </div>
+
+      <!-- Before/After Slider Demo - now larger and higher up -->
+      <div class="card">
+        <h2>See the Difference: Staging & Pro Photography</h2>
+        <div class="slider-label">Drag the slider to see how a photo transforms from “lived-in” to “market-ready”:</div>
+        <div class="photo-slider">
+          <div class="beer-slider" data-beer-label="Before">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Before staging">
+            <div class="beer-reveal" data-beer-label="After">
+              <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=800&q=80" alt="After staging">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery/Ideas -->
+      <div class="card">
+        <h2>Get Inspired: Real Wellington Visuals</h2>
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=400&q=80" alt="Virtual Staging">
+            <h4>Virtual Staging Example</h4>
+            <p>See how a bare room is transformed with digital staging.</p>
+            <a href="https://www.boxbrownie.com/virtual-staging" target="_blank" class="external-link-btn">Try Virtual Staging</a>
+          </div>
+          <div class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80" alt="Drone">
+            <h4>Drone Photography</h4>
+            <p>Show off your home’s location and setting from above for real wow factor.</p>
+            <a href="https://unsplash.com/s/photos/drone" target="_blank" class="external-link-btn">See Free Drone Images</a>
+          </div>
+          <div class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80" alt="Floor Plan">
+            <h4>DIY Floor Plans</h4>
+            <p>Buyers love a good layout—draw your own and download for free.</p>
+            <a href="https://floorplanner.com/" target="_blank" class="external-link-btn">Create Floor Plan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <a href="profile.html">Profile</a>|
+      <a href="pricing.html">Pricing</a>|
+      <a href="terms.html">Terms</a>|
+      <a href="privacy.html">Privacy</a>
+      <p>© 2024 MyHomeSellApp</p>
+    </footer>
+  </div>
+  <!-- BeerSlider JS for before/after slider -->
+  <script src="https://cdn.jsdelivr.net/npm/beerslider/dist/BeerSlider.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      // Before/after slider
+      new BeerSlider(document.querySelector('.beer-slider'));
+    });
+  </script>
+</body>
+</html>

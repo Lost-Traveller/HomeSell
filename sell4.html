@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sell – Sale Method Comparison | HomeSell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* ---------- Base & Layout ---------- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f8fb;
+      color: #223;
+    }
+    .container {
+      max-width: 950px;
+      margin: 32px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 32px 28px;
+    }
+
+    /* ---------- Main Navigation ---------- */
+    .main-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: #1b4e8a;
+      justify-content: center;
+    }
+    .main-nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 24px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: #68a6f6;
+    }
+
+    /* ---------- Sell Section Subnav ---------- */
+    .sell-subnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0;
+    }
+    .sell-subnav a {
+      text-decoration: none;
+      padding: 8px 14px;
+      background: #e4eefa;
+      color: #1b4e8a;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sell-subnav a:hover,
+    .sell-subnav a.active {
+      background: #68a6f6;
+      color: #fff;
+    }
+
+    /* ---------- Headers & Text ---------- */
+    h1 {
+      margin-top: 0;
+      color: #1b4e8a;
+      font-size: 2.2em;
+    }
+    .intro {
+      margin-bottom: 24px;
+      line-height: 1.6;
+      color: #34495e;
+    }
+
+    /* ---------- Sliders ---------- */
+    .slider-group {
+      margin-bottom: 32px;
+    }
+    .slider-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #1b4e8a;
+    }
+    .slider-value {
+      font-weight: bold;
+      color: #ff7f50;
+      margin-left: 8px;
+    }
+    input[type="range"] {
+      width: 100%;
+      margin: 12px 0 6px;
+    }
+
+    /* ---------- Results ---------- */
+    .results {
+      margin-top: 30px;
+    }
+    .method {
+      border: 1px solid #d0e4f7;
+      border-left: 6px solid transparent;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      background: #f9fcff;
+      transition: border-left-color 0.2s, background 0.2s;
+    }
+    .method.recommended {
+      border-left-color: #ff7f50;
+      background: #fff6f0;
+    }
+    .method h3 {
+      margin: 0 0 6px;
+      color: #1b4e8a;
+    }
+    .method ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .method ul li {
+      margin-bottom: 4px;
+      color: #34495e;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media(max-width: 600px) {
+      .container { padding: 24px 16px; }
+      .main-nav { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Navigation -->
+  <ul class="main-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="decide.html">Decide</a></li>
+    <li><a href="prepare.html">Prepare</a></li>
+    <li><a href="market.html">Market</a></li>
+    <li><a href="openhome.html">Open Home</a></li>
+    <li><a href="negotiate.html">Negotiate</a></li>
+    <li><a href="sell.html">Sell & Close</a></li>
+    <li><a href="move.html">Move</a></li>
+  </ul>
+
+  <div class="container">
+    <h1>Sale Method Comparison Tool</h1>
+    <p class="intro">
+      Use the sliders below to describe your market, region, property type, and price point.  
+      We'll dynamically compare five common sale methods—Auction, Negotiation, Fixed Price, Tender, and BEO* —and highlight the one that best fits your situation. (*BEO buyer enquiry over - seller's minimum price - seller must seriously consider any offer over BEO)
+    </p>
+
+    <!-- Sell section sub-navigation -->
+    <div class="sell-subnav">
+      <a href="sell1.html">Decide</a>
+      <a href="sell2.html">Prepare</a>
+      <a href="sell3.html">Settlement Date</a>
+      <a href="sell4.html" class="active">Sale Method</a>
+      <a href="sell5.html">Close & Move</a>
+    </div>
+
+    <!-- Sliders -->
+    <div class="slider-group">
+      <label for="marketRegion">
+        1. Market & Region:
+        <span id="marketRegionValue" class="slider-value">50</span>
+      </label>
+      <input type="range" id="marketRegion" min="0" max="100" value="50"
+             oninput="updateValues(); compareMethods();" />
+      <small>0 = Buyer's Market, Auckland, Budget Homes | 100 = Seller's Market, Regional, Premium Homes</small>
+    </div>
+
+    <div class="slider-group">
+      <label for="propTypePrice">
+        2. Property Type & Price:
+        <span id="propTypePriceValue" class="slider-value">50</span>
+      </label>
+      <input type="range" id="propTypePrice" min="0" max="100" value="50"
+             oninput="updateValues(); compareMethods();" />
+      <small>0 = Entry-Level Home | 100 = Luxury/Investment Property</small>
+    </div>
+
+    <!-- Results -->
+    <div class="results" id="results">
+      <!-- JavaScript will inject method comparisons here -->
+    </div>
+  </div>
+
+  <script>
+    // Pros & cons data
+    const methods = {
+      "Auction": {
+        ideal: { marketRegion: 80, propTypePrice: 80 },
+        pros: ["Drives competition", "Can fetch top price quickly"],
+        cons: ["Risk of no sale", "Auction costs apply"]
+      },
+      "Price by Negotiation": {
+        ideal: { marketRegion: 50, propTypePrice: 50 },
+        pros: ["Flexible timing", "Negotiation room"],
+        cons: ["May not push highest price", "Deals take longer"]
+      },
+      "Fixed Price": {
+        ideal: { marketRegion: 60, propTypePrice: 40 },
+        pros: ["Certainty of price", "Easy to advertise"],
+        cons: ["Less urgency for buyers", "May take longer to sell"]
+      },
+      "Tender": {
+        ideal: { marketRegion: 70, propTypePrice: 70 },
+        pros: ["Structured offers", "Can attract serious buyers"],
+        cons: ["Complex process", "Requires strong marketing"]
+      },
+      "BEO": {
+        ideal: { marketRegion: 40, propTypePrice: 30 },
+        pros: ["Less formal than tender", "Encourages buyer offers"],
+        cons: ["No public competition", "Buyers hold cards close"]
+      }
+    };
+
+    // Update slider labels
+    function updateValues() {
+      document.getElementById('marketRegionValue').textContent =
+        document.getElementById('marketRegion').value;
+      document.getElementById('propTypePriceValue').textContent =
+        document.getElementById('propTypePrice').value;
+    }
+
+    // Compare methods and render results
+    function compareMethods() {
+      const mr = +document.getElementById('marketRegion').value;
+      const pp = +document.getElementById('propTypePrice').value;
+      const container = document.getElementById('results');
+      container.innerHTML = '';
+
+      // Compute “distance” from each method’s ideal
+      const scored = Object.entries(methods).map(([name, data]) => {
+        const d = Math.abs(mr - data.ideal.marketRegion)
+                  + Math.abs(pp - data.ideal.propTypePrice);
+        return { name, score: d, ...data };
+      })
+      .sort((a,b) => a.score - b.score); // lower distance = better fit
+
+      // Render each method, highlight top one
+      scored.forEach((m, i) => {
+        const div = document.createElement('div');
+        div.className = 'method' + (i === 0 ? ' recommended' : '');
+        div.innerHTML = `
+          <h3>${m.name} ${i===0 ? '– Best Fit!' : ''}</h3>
+          <strong>Pros:</strong>
+          <ul>${m.pros.map(p=>`<li>${p}</li>`).join('')}</ul>
+          <strong>Cons:</strong>
+          <ul>${m.cons.map(c=>`<li>${c}</li>`).join('')}</ul>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      updateValues();
+      compareMethods();
+    });
+  </script>
+</body>
+</html>

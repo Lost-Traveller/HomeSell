@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mortgage Freedom & Investment Growth | MyHomeSellApp</title>
+  <!-- Lottie for chain-break animation -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; }
+    .container { max-width: 1200px; margin: auto; background: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; align-items: center; justify-content: space-between; background: #222; padding: 0.5rem 1rem; }
+    .logo { font-size: 1.1rem; font-weight: bold; color: #fff; }
+    nav.primary-nav a { color: #fff; padding: 0.7rem 1.2rem; text-decoration: none; }
+    nav.primary-nav a.active { background: #555; }
+    .login-btn { padding: 0.45rem 1.1rem; background: #0077cc; color: #fff; border-radius: 4px; text-decoration: none; }
+    .sub-nav-row { display: flex; align-items: center; background: #eee; padding: 0.5rem 1rem; }
+    .subnav-links a { margin-right: 0.7rem; padding: 0.6rem 1rem; color: #333; text-decoration: none; border-radius: 4px; }
+    .subnav-links a.active { font-weight: bold; border-bottom: 2px solid #0077cc; }
+    .main { flex: 1; padding: 2rem 1rem; }
+    h1 { margin-top: 0; color: #0077cc; font-size: 2rem; }
+    .intro { font-size: 1.1rem; color: #444; margin-bottom: 1.8rem; }
+    .card { background: #fdfdfd; border: 1px solid #ddd; border-radius: 8px; padding: 1.3rem; margin-bottom: 1.8rem; }
+    .card h2 { margin-top: 0; color: #005fa3; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-weight: bold; margin-bottom: 0.4rem; }
+    .form-group input { width: 100%; max-width: 250px; padding: 0.5rem; border: 1px solid #bbb; border-radius: 4px; }
+    .form-inline { display: flex; align-items: flex-start; gap: 1.2rem; flex-wrap: wrap; }
+    .btn { background: #0077cc; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; }
+    .countdown { font-size: 1.5rem; font-weight: bold; color: #e65c00; margin-top: 0.8rem; }
+    footer { background: #222; color: #ccc; text-align: center; padding: 1rem; margin-top: auto; }
+    @media(max-width:600px){
+      .form-inline { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Main & Sub Nav -->
+    <div class="top-bar">
+      <span class="logo">MyHomeSellApp</span>
+        <nav class="primary-nav">
+        <a href="decide.html" >Decide</a>
+        <a href="prepare.html" class="active">Prepare</a>
+        <a href="market.html">Market</a>
+        <a href="list.html">List</a>
+        <a href="openhome.html">OpenHome</a>
+        <a href="negotiate.html">Negotiate</a>
+        <a href="sell.html">Sell</a>
+        <a href="move.html">Move</a>
+      </nav>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+   
+    <div class="sub-nav-row">
+      <div class="subnav-links">
+        <a href="prepare1.html">Prepare1</a>
+        <a href="prepare2.html">Paperwork</a>
+        <a href="prepare3.html" class="active">Plan to Invest</a>
+        <a href="prepare4.html">Prepare4</a>
+        <a href="prepare5.html">Prepare5</a>
+      </div>
+    </div>
+
+ 
+    <div class="main">
+      <h1>Mortgage Freedom & Investment Growth</h1>
+      <div class="intro">
+        See how your sale proceeds can grow when invested even with regular withdrawals.
+      </div>
+
+      <!-- Mortgage Freedom Inputs -->
+      <div class="card">
+        <h2>Mortgage Freedom Calculator</h2>
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="salePrice">Sale Price ($NZD)</label>
+            <input type="number" id="salePrice" value="900000" min="0" step="1000"/>
+          </div>
+          <div class="form-group">
+            <label for="mortgageBal">Mortgage Balance ($NZD)</label>
+            <input type="number" id="mortgageBal" value="370000" min="0" step="1000"/>
+          </div>
+          <div class="form-group">
+            <label for="saleDate">Planned Sale Date</label>
+            <input type="date" id="saleDate" value="2024-07-15"/>
+          </div>
+          <div class="form-group">
+            <label for="monthlyPay">Monthly Mortgage Payment ($NZD)</label>
+            <input type="number" id="monthlyPay" value="2200" min="0" step="50"/>
+          </div>
+          <button class="btn" id="calcBtn">Calculate Freedom</button>
+        </div>
+      </div>
+
+      <!-- Investment Growth Calculator (New) -->
+      <div class="card">
+        <h2>Investment Growth Calculator</h2>
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="investAmount">Investment Amount ($NZD)</label>
+            <input type="number" id="investAmount" value="500000" min="0" step="1000"/>
+          </div>
+          <div class="form-group">
+            <label for="returnRate">Annual Return (%)</label>
+            <input type="number" id="returnRate" value="7" min="0" step="0.1"/>
+          </div>
+          <div class="form-group">
+            <label for="withdrawRate">Withdrawal Rate (%)</label>
+            <input type="number" id="withdrawRate" value="4" min="0" step="0.1"/>
+          </div>
+          <button class="btn" id="investCalcBtn"> Calculate Growth </button>
+        </div>
+        <div id="investmentResult" style="margin-top:1rem; font-size:1rem; color:#333;"></div>
+      </div>
+
+      <!-- Results: Countdown & Chain Break -->
+      <div class="card" id="resultCard" style="display:none;">
+        <h2>Debt-Free Countdown</h2>
+        <div class="countdown" id="countdown">– days to go</div>
+
+        <h2 style="margin-top:2rem;">Chain Break Moment</h2>
+        <lottie-player
+          id="chainAnim"
+          src="https://assets2.lottiefiles.com/private_files/lf30_oqswz4p7.json"
+          background="transparent"
+          speed="1"
+          style="width:300px; height:300px; margin:auto;"
+          loop="false"
+          autoplay="false">
+        </lottie-player>
+      </div>
+    </div>
+
+    <footer>
+      <a href="profile.html">Profile</a>|
+      <a href="pricing.html">Pricing</a>|
+      <a href="terms.html">Terms</a>|
+      <a href="privacy.html">Privacy</a>
+      <p>© 2024 MyHomeSellApp</p>
+    </footer>
+  </div>
+
+  <script>
+    // Mortgage Freedom
+    const salePriceEl  = document.getElementById('salePrice');
+    const mortgageBalEl = document.getElementById('mortgageBal');
+    const saleDateEl   = document.getElementById('saleDate');
+    const calcBtn      = document.getElementById('calcBtn');
+    const resultCard   = document.getElementById('resultCard');
+    const countdownEl  = document.getElementById('countdown');
+    const chainAnim    = document.getElementById('chainAnim');
+    let countdownInt;
+
+    function startCountdown(targetDate) {
+      clearInterval(countdownInt);
+      countdownInt = setInterval(() => {
+        const now = new Date();
+        const diff = new Date(targetDate) - now;
+        if (diff <= 0) {
+          clearInterval(countdownInt);
+          countdownEl.textContent = 'Today is the day!';
+          chainAnim.play();
+          return;
+        }
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours= Math.floor((diff/(1000*60*60))%24);
+        const mins = Math.floor((diff/(1000*60))%60);
+        const secs = Math.floor((diff/1000)%60);
+        countdownEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+      }, 1000);
+    }
+
+    calcBtn.addEventListener('click', () => {
+      const price   = parseFloat(salePriceEl.value) || 0;
+      const balance = parseFloat(mortgageBalEl.value) || 0;
+      const date    = saleDateEl.value;
+      if (!date || price < balance) {
+        alert('Enter a valid sale date and ensure Sale Price ≥ Mortgage Balance.');
+        return;
+      }
+      resultCard.style.display = 'block';
+      startCountdown(date);
+    });
+
+    // Investment Growth Calculator
+    const investAmountEl = document.getElementById('investAmount');
+    const returnRateEl   = document.getElementById('returnRate');
+    const withdrawRateEl = document.getElementById('withdrawRate');
+    const investCalcBtn  = document.getElementById('investCalcBtn');
+    const investmentResult= document.getElementById('investmentResult');
+
+    investCalcBtn.addEventListener('click', () => {
+      const amount   = parseFloat(investAmountEl.value)  || 0;
+      const rRate    = parseFloat(returnRateEl.value)/100 || 0;
+      const wRate    = parseFloat(withdrawRateEl.value)/100|| 0;
+      const earnings = amount * rRate;
+      const withdrawal = amount * wRate;
+      const netPrincipal = amount + earnings - withdrawal;
+      const netGrowth = netPrincipal - amount;
+
+      investmentResult.innerHTML = `
+        <p>You earn $${earnings.toLocaleString(undefined,{minimumFractionDigits:2})} in one year,</p>
+        <p>withdraw $${withdrawal.toLocaleString(undefined,{minimumFractionDigits:2})},</p>
+        <p>and your principal grows by $${netGrowth.toLocaleString(undefined,{minimumFractionDigits:2})} to <strong>$${netPrincipal.toLocaleString(undefined,{minimumFractionDigits:2})}</strong>.</p>
+      `;
+    });
+  </script>
+</body>
+</html>

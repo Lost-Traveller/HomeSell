@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Next Home Finder | MyHomeSellApp</title>
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+  .container {
+    max-width: 1200px; /* wider container for full page use */
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+
+  /* HEADER & NAV */
+  .top-bar {
+    display:flex; align-items:center; justify-content:space-between;
+    background:#222; padding:0.5rem 1rem;
+  }
+  .logo { font-size:1.1rem; font-weight:bold; color:#fff; }
+
+  /* Main nav - style like list1.html, small indicator for active */
+  .main-nav {
+    display:flex; justify-content:center; align-items:center; height:60px; background:#222;
+  }
+  .main-nav a {
+    color:#fff; font-family:'Open Sans', sans-serif; font-weight:600;
+    padding:16px 20px; font-size:1.08em; text-decoration:none; position:relative;
+    transition:background 0.2s;
+  }
+  /* Small bottom bar for active link */
+  .main-nav a.active::after {
+    content:""; display:block; height:3px; background:#ff7f50; width:100%; position:absolute; bottom:0; left:0;
+  }
+  /* Hover color for nav links */
+  .main-nav a:hover { background:#68a6f6; }
+
+  /* Subnav */
+  .sub-nav-row { display:flex; align-items:center; background:#eee; padding:0.5rem 1rem; }
+  .subnav-links { display:flex; gap:0.3rem; flex-wrap:wrap; }
+  .subnav-links a {
+    padding:.7rem 1.1rem; border-radius:3px; text-decoration:none; font-weight:500; font-family:'Open Sans', sans-serif;
+    color:#333; transition:background .15s;
+  }
+  .subnav-links a.active { font-weight: bold; border-bottom: 2px solid #0077cc; }
+  .subnav-links a:hover { background:#ddd; }
+
+  /* Main content styles */
+  .main {
+    padding:2rem 1rem 1.5rem 1rem;
+    flex:1;
+    display:flex; flex-direction:column; align-items:flex-start; /* left align */
+    width:100%; /* full width */
+  }
+  h1 {
+    font-size:2.1rem; color:#0077cc; margin-top:0; margin-bottom:1rem; text-align:left;
+  }
+  .intro {
+    font-size:1.16rem; color:#444; max-width:1200px; width:100%; margin-bottom:2rem; text-align:left;
+    padding-right:1rem; /* add some right padding for right alignment effect */
+  }
+  /* Slider container - full width (max 1200px) */
+  .slider-container {
+    width:100%; max-width:1200px; padding:0 1rem; margin-bottom:2rem;
+  }
+  .slider-label {
+    font-size:1.07rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:0.7rem; width:100%;
+  }
+  input[type=range] {
+    width:100%;
+  }
+  /* Map size */
+  #map {
+    height:500px; width:95%; max-width:1200px; margin:1rem auto; border-radius:12px;
+  }
+  /* Info card style, no circle, just text info */
+  #info {
+    margin-top:1rem; max-width:1200px; width:95%; margin-left:auto; margin-right:auto; padding:1rem;
+  }
+  #info .card {
+    background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05);
+    font-family:'Open Sans', sans-serif; font-size:1rem; color:#333; line-height:1.4;
+  }
+  #info h2 {
+    margin-top:0; margin-bottom:0.5rem; font-size:1.2rem; color:#0077cc;
+  }
+  #info p {
+    margin:0.3rem 0;
+  }
+
+  /* Footer */
+  footer {
+    background:#222; color:#ccc; text-align:center; padding:1rem; margin-top:auto;
+  }
+
+  @media(max-width:900px){
+    #map { height:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header & Nav -->
+  <div class="top-bar">
+    <span class="logo">MyHomeSellApp</span>
+    <nav class="main-nav">
+      <a href="decide.html">Decide</a>
+      <a href="prepare1.html">Prepare</a>
+      <a href="market1.html">Market</a>
+      <a href="list1.html">List</a>
+      <a href="openhome1.html">OpenHome</a>
+      <a href="negotiate1.html">Negotiate</a>
+      <a href="sell1.html">Sell</a>
+      <a href="move1.html"class="active">Move</a>
+    </nav>
+    <a href="login.html" style="background:#0077cc; padding:0.45rem 1.1rem; color:#fff; border-radius:4px; text-decoration:none; font-weight:500; font-size:1rem;">Login</a>
+  </div>
+
+  <!-- Subnav -->
+  <div class="sub-nav-row">
+    <div class="subnav-links">
+      <a href="move.html" >Move</a>
+      <a href="move1.html">Overlay map</a>
+      <a href="move2.html"class="active">Map What can your money buy?</a>
+      <a href="move3.html">Move3</a>
+      <a href="move4.html">Realtors Commissions</a>
+      <a href="move5.html">Move5</a>
+    </div>
+  </div>
+  <div class="main">
+    <h1>Next Home Finder</h1>
+    <div class="intro">
+      Enter your expected sale price to explore where your money goes furthest in Wellington and the wider region. Compare suburbs for size, lifestyle, average income, and annual rates — all visualized on the map.
+    </div>
+    <div class="slider-container">
+      <label for="salePrice">Expected Sale Price ($NZD):</label>
+      <input type="range" id="salePrice" min="300000" max="3000000" step="50000" value="900000">
+      <div class="slider-label">Value: <span id="priceValue"></span></div>
+    </div>
+    <div id="map"></div>
+    <div id="info"></div>
+  </div>
+  <footer>
+    <a href="profile.html">Profile</a>|
+    <a href="pricing.html">Pricing</a>|
+    <a href="terms.html">Terms</a>|
+    <a href="privacy.html">Privacy</a>
+    <p>© 2024 MyHomeSellApp</p>
+  </footer>
+</div>
+<script>
+  // 12 Wellington Region suburbs - demo data (replace with real data as needed)
+  const suburbs = [
+    {
+      name: "Newtown",
+      coords: [-41.3126, 174.7796],
+      median: 910000,
+      description: "Lively, urban and diverse. Close to hospital, buses. Popular with families & professionals.",
+      size: "2-3 bed, townhouses & villas",
+      avgIncome: 60500,
+      avgRates: 3450
+    },
+    {
+      name: "Upper Hutt",
+      coords: [-41.1242, 175.0701],
+      median: 790000,
+      description: "More space, big parks, good schools. Easy train & car commute.",
+      size: "3-4 bed, houses",
+      avgIncome: 71000,
+      avgRates: 3200
+    },
+    {
+      name: "Karori",
+      coords: [-41.2924, 174.7397],
+      median: 1050000,
+      description: "Leafy, top schools, near Zealandia. Quiet & family friendly.",
+      size: "3-5 bed, family homes",
+      avgIncome: 79000,
+      avgRates: 4200
+    },
+    {
+      name: "Island Bay",
+      coords: [-41.3358, 174.7638],
+      median: 950000,
+      description: "Beachside, cafes, and outdoor life. Great for families.",
+      size: "2-4 bed, bungalows & villas",
+      avgIncome: 67000,
+      avgRates: 3850
+    },
+    {
+      name: "Featherston",
+      coords: [-41.1133, 175.3291],
+      median: 650000,
+      description: "Wairarapa rural edge. Affordable, big sections, relaxed pace. Commute to Wellington by train.",
+      size: "3-5 bed, large houses",
+      avgIncome: 52000,
+      avgRates: 2500
+    },
+    {
+      name: "Johnsonville",
+      coords: [-41.2236, 174.8053],
+      median: 800000,
+      description: "Family suburb, malls, schools, parks, easy commute.",
+      size: "2-4 bed, houses",
+      avgIncome: 68000,
+      avgRates: 3400
+    },
+    {
+      name: "Petone",
+      coords: [-41.2251, 174.8705],
+      median: 850000,
+      description: "Buzzing, close to the beach and Jackson Street cafes. Great for commuters or young families.",
+      size: "2-3 bed, villas & townhouses",
+      avgIncome: 62500,
+      avgRates: 3450
+    },
+    {
+      name: "Tawa",
+      coords: [-41.1695, 174.8392],
+      median: 740000,
+      description: "Affordable and family-friendly, with good schools and train access.",
+      size: "3-4 bed, houses",
+      avgIncome: 71500,
+      avgRates: 3300
+    },
+    {
+      name: "Khandallah",
+      coords: [-41.2443, 174.7796],
+      median: 1200000,
+      description: "Prestigious, leafy suburb with great views and top schools.",
+      size: "3-5 bed, executive homes",
+      avgIncome: 95000,
+      avgRates: 4600
+    },
+    {
+      name: "Porirua",
+      coords: [-41.1353, 174.8398],
+      median: 730000,
+      description: "Harbour views, multicultural, affordable for families. Easy motorway to Wellington.",
+      size: "3-4 bed, houses",
+      avgIncome: 58000,
+      avgRates: 2950
+    },
+    {
+      name: "Wainuiomata",
+      coords: [-41.2541, 174.9295],
+      median: 670000,
+      description: "Affordable, strong community, bush walks and easy drive to Lower Hutt.",
+      size: "3-4 bed, houses",
+      avgIncome: 54000,
+      avgRates: 2800
+    },
+    {
+      name: "Seatoun",
+      coords: [-41.3209, 174.8267],
+      median: 1250000,
+      description: "Coastal, prestigious, beach walks and top schools. Quiet, with a village feel.",
+      size: "3-5 bed, family homes",
+      avgIncome: 99000,
+      avgRates: 4800
+    },
+{
+  name: "Wainuiomata",
+  coords: [-41.2541, 174.9295],
+  median: 670000,
+  description: "Affordable, strong community, bush walks, and easy drive to Lower Hutt.",
+  size: "3-4 bed, houses",
+  avgIncome: 54000,
+  avgRates: 2800
+},
+{
+  name: "Tawa",
+  coords: [-41.1695, 174.8392],
+  median: 740000,
+  description: "Family-friendly, good schools, and train access.",
+  size: "3-4 bed, houses",
+  avgIncome: 71500,
+  avgRates: 3300
+},
+{
+  name: "Khandallah",
+  coords: [-41.2443, 174.7796],
+  median: 1200000,
+  description: "Prestigious, leafy with great views and top schools.",
+  size: "3-5 bed, executive homes",
+  avgIncome: 95000,
+  avgRates: 4600
+},
+{
+  name: "Porirua",
+  coords: [-41.1353, 174.8398],
+  median: 730000,
+  description: "Harbour views, multicultural, affordable for families.",
+  size: "3-4 bed, houses",
+  avgIncome: 58000,
+  avgRates: 2950
+},
+{
+  name: "Wellington East",
+  coords: [-41.2628, 174.7811],
+  median: 950000,
+  description: "Close to the city, great views of the coastline, family friendly.",
+  size: "2-4 bed, villas & townhouses",
+  avgIncome: 72000,
+  avgRates: 3800
+},
+{
+  name: "Maupuia",
+  coords: [-41.2747, 174.7912],
+  median: 880000,
+  description: "Quiet, hillside suburb with city views, close to hospital.",
+  size: "3-4 bed, villas & family homes",
+  avgIncome: 69000,
+  avgRates: 4000
+},
+{
+  name: "Glenside",
+  coords: [-41.2310, 174.8290],
+  median: 820000,
+  description: "Suburban, with parks and schools nearby, good family area.",
+  size: "3-4 bed, family homes",
+  avgIncome: 67000,
+  avgRates: 3100
+},
+{
+  name: "Grenada North",
+  coords: [-41.1890, 174.8230],
+  median: 780000,
+  description: "Affordable, with big sections, some new builds.",
+  size: "3-4 bed, houses",
+  avgIncome: 64000,
+  avgRates: 2900
+},
+{
+  name: "Johnsonville",
+  coords: [-41.2236, 174.8053],
+  median: 800000,
+  description: "Family suburb, malls, schools, parks, easy commute.",
+  size: "2-4 bed, houses",
+  avgIncome: 68000,
+  avgRates: 3400
+},
+{
+  name: "Kenepuru",
+  coords: [-41.1034, 174.9170],
+  median: 620000,
+  description: "Affordable, with good transport links, close to the CBD.",
+  size: "3 bed, townhouses & houses",
+  avgIncome: 58000,
+  avgRates: 2700
+},
+{
+  name: "Cannons Creek",
+  coords: [-41.1550, 174.9990],
+  median: 580000,
+  description: "Diverse community, affordable, close to parks and schools.",
+  size: "3 bed, houses",
+  avgIncome: 52000,
+  avgRates: 2500
+}
+  ];
+
+  const map = L.map('map').setView([-41.2865, 174.7762], 11); // Wellington center
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+  let markers = [];
+
+  function updateMap() {
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+
+    const price = parseInt(document.getElementById('salePrice').value, 10) || 0;
+    document.getElementById('priceValue').textContent = `$${price.toLocaleString()}`;
+
+    const matches = suburbs.filter(s => s.median <= price);
+    if(matches.length === 0){
+      document.getElementById('info').innerHTML = "<div style='padding:1rem; background:#fff; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05);'>No matches found. Try increasing your sale price or expanding your search area.</div>";
+      return;
+    }
+
+    matches.forEach(sub => {
+      const m = L.marker(sub.coords).addTo(map);
+      m.bindPopup(`<b>${sub.name}</b><br>Median: $${sub.median.toLocaleString()}`);
+      m.on('click', () => showInfo(sub));
+      markers.push(m);
+    });
+    map.setView(matches[0].coords, 12);
+    showInfo(matches[0]);
+  }
+
+  function showInfo(sub) {
+    document.getElementById('info').innerHTML = `
+      <div style="background:#f7fafd;border-radius:8px;padding:1rem; box-shadow:0 2px 4px rgba(0,0,0,0.03);">
+        <h2 style="margin-top:0;">${sub.name}</h2>
+        <div style="margin-bottom:0.7rem;">${sub.description}</div>
+        <p><strong>Median Price:</strong> $${sub.median.toLocaleString()}</p>
+        <p><strong>Typical Size:</strong> ${sub.size}</p>
+        <p><strong>Average Income:</strong> $${sub.avgIncome.toLocaleString()} per year</p>
+        <p><strong>Average Annual Rates:</strong> $${sub.avgRates.toLocaleString()}</p>
+      </div>
+    `;
+  }
+
+  updateMap();
+  document.getElementById('salePrice').addEventListener('input', updateMap);
+</script>
+</body>
+</html>

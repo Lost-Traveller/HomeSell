@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prepare - Paperwork & Legal | MyHomeSellApp</title>
+  <!-- (Optional) Remove FullCalendar CSS if not used on this page -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: #f7fafd;
+      margin: 0;
+      padding: 0;
+      color: #1b4e8a;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Main Navigation Bar */
+    .main-nav {
+      background: #fff;
+      border-bottom: 1px solid #eaf2fb;
+      padding: 0.5rem 0 0.5rem 0;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 1.08rem;
+    }
+    .nav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.6em;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-links a {
+      display: inline-block;
+      color: #1b4e8a;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.6em 1.15em;
+      border-radius: 4px;
+      transition: background 0.13s, color 0.13s;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: #eaf2fb;
+      color: #ff7f50;
+    }
+
+    /* Subnav Bar */
+    .subnav {
+      background: #fff;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #eaf2fb;
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+    .subnav-links {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.50em;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .subnav-links a {
+      display: inline-block;
+      padding: 0.42em 1.1em;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: #1b4e8a;
+      background: #f7fafd;
+      border-radius: 22px;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+      margin-left: 0.1em;
+    }
+    .subnav-links a.active,
+    .subnav-links a:hover {
+      background: #1b4e8a;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(27,78,138,0.08);
+    }
+
+    /* Main Content Area */
+    .main-content {
+      padding: 2rem 1rem 1.5rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 2.1rem;
+      color: #0077cc;
+      letter-spacing: 0.5px;
+    }
+    .intro-text {
+      font-size: 1.15rem;
+      color: #444;
+      margin-bottom: 1.4rem;
+    }
+    /* Resource Cards */
+    .resources-section {
+      margin-bottom: 2rem;
+    }
+    .resources-section h2 {
+      font-size: 1.25rem;
+      color: #005fa3;
+      letter-spacing: 0.5px;
+    }
+    .resources-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .resource-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      padding: 1.1rem 1.2rem;
+      width: 270px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      border-left: 6px solid #0077cc;
+      transition: box-shadow .15s;
+    }
+    .resource-card.priority { border-left: 6px solid #e65c00; }
+    .resource-card .icon {
+      width: 32px; height: 32px; margin-bottom: 0.4rem;
+    }
+    .resource-card .title {
+      font-size: 1.07rem; font-weight: bold; margin-bottom: 0.2rem; color: #222;
+    }
+    .resource-card .desc {
+      font-size: 0.98rem; color: #444; margin-bottom: 0.7rem;
+    }
+    .resource-card .btn {
+      display: inline-block;
+      background: #0077cc;
+      color: #fff;
+      padding: 0.4rem 1.1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 1rem;
+      margin-top: auto;
+      transition: background .15s;
+    }
+    .resource-card .btn:hover { background: #005fa3; }
+    @media (max-width: 900px) {
+      .resources-grid { flex-direction: column; gap: 1rem;}
+      .resource-card { width: 100%; }
+    }
+    footer {
+      background: #222; color: #ccc; text-align: center; font-size: .9rem; padding: 1rem; margin-top: auto;
+    }
+    footer a { color: #ccc; margin: 0 .5em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+      <div class="nav-links">
+        <a href="decide.html">Decide</a>
+        <a href="prepare1.html" class="active">Prepare</a>
+        <a href="market1.html">Market</a>
+        <a href="list1.html">List</a>
+        <a href="openhome1.html">Open Home</a>
+        <a href="negotiate1.html">Negotiate</a>
+        <a href="sell1.html">Sell</a>
+        <a href="move1.html">Move</a>
+      </div>
+    </nav>
+    <!-- Sub Navigation (right aligned) -->
+    <nav class="subnav">
+      <div class="subnav-links">
+        <a href="prepare1.html">prepare1</a>
+        <a href="prepare2.html" class="active">prepare2</a>
+        <a href="prepare3.html">prepare3</a>
+        <a href="prepare4.html">prepare4</a>
+        <a href="prepare5.html">prepare5</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Paperwork & Legal – Wellington, NZ</h1>
+      <div class="intro-text">
+        Here are the key documents and templates you’ll need to get ready to sell your home in Wellington. 
+        <b>Priority compliance and legal forms appear first.</b> Scroll down for helpful checklists, open home pamphlets, and other resources.<br><br>
+        <span style="color:#e65c00;font-weight:bold;">Tip:</span> Always check with your real estate lawyer or agent if you’re unsure about a document’s requirements!
+      </div>
+      
+      <!-- PRIORITY DOCS -->
+      <div class="resources-section">
+        <h2>Priority: Compliance & Legal Documents</h2>
+        <div class="resources-grid">
+          <div class="resource-card priority">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4c4.svg" alt="PDF" class="icon"/>
+            <div class="title">Sale & Purchase Agreement (REINZ/NZLS)</div>
+            <div class="desc">The official contract for selling property in NZ. Download a sample for review.</div>
+            <a href="#" class="btn">Download PDF</a>
+          </div>
+          <div class="resource-card priority">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4dd.svg" alt="Checklist" class="icon"/>
+            <div class="title">Wellington Council LIM Request Form</div>
+            <div class="desc">Order your Land Information Memorandum (LIM) – essential for buyers.</div>
+            <a href="#" class="btn">Go to Council</a>
+          </div>
+          <div class="resource-card priority">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4c3.svg" alt="Doc" class="icon"/>
+            <div class="title">Property Disclosure Statement</div>
+            <div class="desc">Required for all sales. Disclose issues, repairs, and legal notices.</div>
+            <a href="#" class="btn">Download Template</a>
+          </div>
+          <div class="resource-card priority">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/270f.svg" alt="Pen" class="icon"/>
+            <div class="title">Title Search Request</div>
+            <div class="desc">Order your property title from Land Information NZ (LINZ).</div>
+            <a href="https://www.linz.govt.nz/" class="btn" target="_blank">Go to LINZ</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OTHER DOCS -->
+      <div class="resources-section">
+        <h2>Other Helpful Templates & Resources</h2>
+        <div class="resources-grid">
+          <div class="resource-card">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4d6.svg" alt="Checklist" class="icon"/>
+            <div class="title">Home Preparation Checklist</div>
+            <div class="desc">A step-by-step to get your house looking its best before listing.</div>
+            <a href="#" class="btn">Download PDF</a>
+          </div>
+          <div class="resource-card">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4f0.svg" alt="Pamphlet" class="icon"/>
+            <div class="title">Open Home Pamphlet Template</div>
+            <div class="desc">Customise and print for your open homes. Modern and clear for buyers.</div>
+            <a href="#" class="btn">Download Word</a>
+          </div>
+          <div class="resource-card">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ca.svg" alt="Chart" class="icon"/>
+            <div class="title">Renovation Cost Tracker</div>
+            <div class="desc">Simple spreadsheet to plan and track your home improvements.</div>
+            <a href="#" class="btn">Download Excel</a>
+          </div>
+          <div class="resource-card">
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5c3.svg" alt="Folder" class="icon"/>
+            <div class="title">Document Checklist for Settlement</div>
+            <div class="desc">Ensure you have everything ready for settlement day.</div>
+            <a href="#" class="btn">Download PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <a href="profile.html">Profile</a>|
+      <a href="pricing.html">Pricing</a>|
+      <a href="terms.html">Terms</a>|
+      <a href="privacy.html">Privacy</a>
+      <p>© 2024 MyHomeSellApp</p>
+    </footer>
+  </div>
+</body>
+</html>

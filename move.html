@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Move - MyHomeSellApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; }
+    .container { max-width: 1200px; margin: auto; background: #fff; min-height: 100vh; }
+    header, nav, .sub-nav, .content, footer { padding: 0; }
+    header { height: 1.5rem; }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #222;
+      padding: 0.5rem 1rem;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+      margin-right: 1.5rem;
+      letter-spacing: 1px;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: #333;
+    }
+    nav.primary-nav {
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      margin-left: 1rem;
+    }
+    nav.primary-nav a {
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    nav.primary-nav a.active { background: #555; }
+    .login-btn {
+      padding: 0.45rem 1.1rem;
+      background: #0077cc;
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-left: 1rem;
+      border: none;
+    }
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      background: #eee;
+      padding: 0.5rem 0;
+    }
+    .sub-nav a {
+      padding: .7rem 1.1rem;
+      color: #333;
+      text-decoration: none;
+    }
+    .sub-nav a.active { font-weight: bold; border-bottom: 2px solid #0077cc; }
+    .content {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    aside {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    /* TO DO SIDEBAR */
+    .todo-section {
+      background: #fafafa;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-height: 200px;
+    }
+    .todo-section h3 {
+      margin-top: 0;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .todo-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 0 1rem 0;
+    }
+    .todo-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .todo-list input[type="checkbox"] {
+      margin-right: 0.5rem;
+      cursor: pointer;
+    }
+    .todo-add {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .todo-add input[type="text"] {
+      flex: 1;
+      padding: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 1rem;
+    }
+    .todo-add button {
+      padding: 0.4rem 0.75rem;
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    /* MAIN PANEL */
+    main {
+      flex: 3;
+      background: #ededed;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    /* AI BAR INSIDE MAIN */
+    .ai-input-panel {
+      background: #e0e0e0;
+      border-radius: 6px;
+      padding: 1.2rem 1rem 1rem 1rem;
+      margin-bottom: 2rem;
+      border: 1.5px solid #ccc;
+    }
+    .ai-input-panel label {
+      font-weight: bold;
+      font-size: 1.07rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    .ai-input-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.7rem;
+    }
+    .ai-input-panel textarea {
+      width: 100%;
+      min-height: 2.5rem;
+      max-height: 7rem;
+      resize: vertical;
+      font-size: 1.15rem;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      border: 1.2px solid #bbb;
+      background: #fff;
+      flex: 1;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    .ai-input-panel textarea:focus {
+      border-color: #0077cc;
+      outline: none;
+    }
+    .ai-input-panel button.speak-btn {
+      background: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 2.3rem;
+      height: 2.3rem;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .ai-input-panel button.speak-btn:hover {
+      background: #005fa3;
+    }
+    /* Footer */
+    footer {
+      background: #222;
+      color: #ccc;
+      text-align: center;
+      font-size: .9rem;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    footer a { color: #ccc; margin: 0 .5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header> </header>
+
+    <!-- TOP BAR: logo + nav + login ALL TOGETHER -->
+    <div class="top-bar">
+      <span class="logo">MyHomeSellApp</span>
+
+      <nav class="primary-nav">
+        <a href="decide.html">Decide</a>
+        <a href="prepare.html">Prepare</a>
+        <a href="market.html">Market</a>
+        <a href="list.html">List</a>
+        <a href="openhome.html">OpenHome</a>
+        <a href="negotiate.html">Negotiate</a>
+        <a href="sell.html">Sell</a>
+        <a href="move.html" class="active">Move</a>
+  </nav>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+
+    <!-- SUB NAV -->
+    <div class="sub-nav">
+      <a href="move1.html"class="active">Map of Suburbs</a>
+      <a href="move2.html">Move2</a>
+      <a href="move3.html">Move3</a>
+      <a href="move4.html">Move4</a>
+      <a href="move5.html">Move5</a>
+    </div>
+
+    <div class="content">
+      <!-- SIDEBAR: TO DO LIST -->
+      <aside>
+        <section class="todo-section">
+          <h3>TO DO</h3>
+          <ul class="todo-list" id="todo-list">
+            <!-- To-do items will appear here -->
+          </ul>
+          <form class="todo-add" id="todo-form" autocomplete="off">
+            <input type="text" id="todo-input" placeholder="Add a to-do…" />
+            <button type="submit">Add</button>
+          </form>
+        </section>
+      </aside>
+      <!-- MAIN PANEL -->
+      <main>
+        <!-- AI CHAT BAR INSIDE MAIN PANEL, AT THE TOP -->
+        <div class="ai-input-panel">
+          <label for="ai-question">Search</label>
+          <div class="ai-input-row">
+            <textarea id="ai-question" placeholder="Search the Site…"></textarea>
+            <button class="speak-btn" type="button" title="Speak (not yet implemented)">
+              <span aria-label="Speak">🎤</span>
+            </button>
+          </div>
+        </div>
+        <h2>Move</h2>
+        <p>Welcome to the Move section! Choose a sub-section above.</p>
+      </main>
+    </div>
+
+    <footer>
+      <a href="profile.html">Profile</a>|
+      <a href="pricing.html">Pricing</a>|
+      <a href="terms.html">Terms</a>|
+      <a href="privacy.html">Privacy</a>
+      <p>&copy; 2024 MyHomeSellApp</p>
+    </footer>
+  </div>
+  <!-- Simple JavaScript for TO DO list -->
+  <script>
+    const todoForm = document.getElementById('todo-form');
+    const todoInput = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
+
+    // Load todos from localStorage
+    function loadTodos() {
+      const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+      todoList.innerHTML = '';
+      todos.forEach((todo, idx) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <input type="checkbox" ${todo.done ? 'checked' : ''} data-idx="${idx}">
+          <span style="text-decoration:${todo.done ? 'line-through' : 'none'}">${todo.text}</span>
+          <button data-idx="${idx}" style="margin-left:auto;background:none;border:none;color:#999;cursor:pointer;" title="Remove">&times;</button>
+        `;
+        todoList.appendChild(li);
+      });
+    }
+
+    // Save todos to localStorage
+    function saveTodos(todos) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    // Handle add to-do
+    todoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = todoInput.value.trim();
+      if (!text) return;
+      const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+      todos.push({ text, done: false });
+      saveTodos(todos);
+      todoInput.value = '';
+      loadTodos();
+    });
+
+    // Handle check/uncheck and remove
+    todoList.addEventListener('click', function(e) {
+      const idx = e.target.getAttribute('data-idx');
+      if (e.target.type === 'checkbox') {
+        const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+        todos[idx].done = e.target.checked;
+        saveTodos(todos);
+        loadTodos();
+      } else if (e.target.tagName === 'BUTTON') {
+        const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+        todos.splice(idx, 1);
+        saveTodos(todos);
+        loadTodos();
+      }
+    });
+
+    // Initial load
+    loadTodos();
+  </script>
+</body>
+</html>

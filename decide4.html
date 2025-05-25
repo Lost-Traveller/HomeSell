@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Next Home Finder | MyHomeSellApp</title>
+<!-- Leaflet CSS & JS (if needed) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background:#fff;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+  .container {
+    max-width: 1200px; /* wider container for full page use */
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+
+  /* HEADER & NAV */
+  .top-bar {
+    display:flex; align-items:center; justify-content:space-between;
+    background:#222; padding:0.5rem 1rem;
+  }
+  .logo { font-size:1.1rem; font-weight:bold; color:#fff; }
+
+  /* Main nav - wider bar similar to cards */
+  .main-nav {
+    display:flex; justify-content:center; align-items:center; height:45px; background:#222;
+    width:130%; /*  full width  */
+  }
+  .main-nav a {
+    color:#fff; font-family:'Open Sans', sans-serif; font-weight:500;
+    padding:16px 20px; font-size:1.1em; text-decoration:none; position:relative;
+    transition:background 0.2s;
+  }
+  /* Small bottom bar for active link */
+  .main-nav a.active::after {
+    content:""; display:block; height:3px; background:#ff7f50; width:100%; position:absolute; bottom:0; left:0;
+  }
+  /* Hover effect for nav links */
+  .main-nav a:hover { background:#68a6f6; }
+
+  /* Subnav styling, wider and matching width of cards */
+  .sub-nav-row {
+    display:flex; align-items:center; background:#fff; padding:0.5rem 1rem; width:100%;
+  }
+  .subnav-links {
+    display:flex; gap:0.3rem; flex-wrap:wrap; width:100%; justify-content:space-between;
+  }
+  .subnav-links a {
+    padding:.7rem 1.1rem; border-radius:3px; text-decoration:none; font-weight:500; font-family:'Open Sans', sans-serif;
+    color:#333; transition:background .15s; flex:1 1 auto; text-align:center;
+  }
+  .subnav-links a.active { font-weight: bold; border-bottom: 2px solid #0077cc; }
+  .subnav-links a:hover { background:#ddd; }
+
+  /* Main content styles */
+  .main {
+    padding:2rem 1rem 1.5rem 1rem;
+    flex:1;
+    display:flex; flex-direction:column; align-items:flex-start; /* left align */
+    width:100%; /* full width */
+  }
+  h1 {
+    font-size:2.1rem; color:#0077cc; margin-top:0; margin-bottom:1rem; text-align:left;
+  }
+  .intro {
+    font-size:1.16rem; color:#444; max-width:1200px; width:100%; margin-bottom:2rem; text-align:left;
+    padding-right:1rem;
+  }
+  /* Card style for the slider, wider */
+  .card {
+    background:#ddd; padding:2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    max-width:1200px; width:100%; margin-bottom:2rem;
+  }
+  /* Slider label inside card, full width */
+  .slider-label {
+    display:flex; justify-content:space-between; align-items:center; font-size:1.07rem; margin-bottom:1em; width:100%;
+  }
+  /* House value input with space after $ sign */
+  #home-value {
+    width:130px; padding:0.7em; font-size:1em; border-radius:4px; border:1px solid #ccc; margin-left:0.5em;
+  }
+  /* Buttons */
+button {
+  padding:0.7em 1.2em; font-size:1em; font-family:'Open Sans', sans-serif; border:none; border-radius:4px; background:#0077cc; color:#fff; cursor:pointer; transition:background 0.2s;
+  margin-top:1em;
+}
+button:hover { background:#005fa3; }
+
+  /* Map size */
+  #map {
+    height:500px; width:95%; max-width:1000px; margin:1rem auto; border-radius:12px;
+  }
+
+  /* Info card below map */
+  #info {
+    margin-top:1rem; max-width:1200px; width:95%; margin-left:auto; margin-right:auto; padding:1rem;
+  }
+  #info .card {
+    background:#fff; padding:1rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05);
+    font-family:'Open Sans', sans-serif; font-size:1rem; color:#333; line-height:1.4;
+  }
+  #info h2 {
+    margin-top:0; margin-bottom:0.5rem; font-size:1.2rem; color:#0077cc;
+  }
+  #info p {
+    margin:0.3rem 0;
+  }
+
+  /* Footer styling */
+  footer {
+    background:#222; color:#ccc; text-align:center; padding:1rem; margin-top:auto;
+  }
+
+  @media(max-width:900px){
+    #map { height:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header & Nav -->
+  <div class="top-bar">
+    <span class="logo">MyHomeSellApp</span>
+    <nav class="main-nav">
+      <a href="decide.html" class="active">Decide</a>
+      <a href="prepare1.html">Prepare</a>
+      <a href="market1.html">Market</a>
+      <a href="list1.html">List</a>
+      <a href="openhome1.html">OpenHome</a>
+      <a href="negotiate1.html">Negotiate</a>
+      <a href="sell1.html">Sell</a>
+      <a href="move1.html">Move</a>
+    </nav>
+    <a href="login.html" style="background:#0077cc; padding:0.45rem 1.1rem; color:#fff; border-radius:4px; text-decoration:none; font-weight:500; font-size:1rem;">Login</a>
+  </div>
+
+  <!-- Subnav -->
+  <div class="sub-nav-row">
+    <div class="subnav-links">
+      <a href="decide.html" >Map What could you buy?</a>
+      <a href="decide1.html" class="active">Overlay map</a>
+      <a href="decide2.html">Decide2</a>
+      <a href="decide3.html">Decide3</a>
+      <a href="decide4.html" class="active">Realtors Commissions</a>
+      <a href="decide5.html">Decide5</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <h2>Realtor Commission & Expected Profit</h2>
+    <div class="intro-text"></div>
+
+    <!-- Cost Slider Card (wider, full width) -->
+    <div class="card" style="max-width:1200px; width:100%;">
+      <label for="commission-slider" style="display:flex; justify-content:space-between; align-items:center; font-size:1.07rem; margin-bottom:1em;">
+        <span>Realtor Commission: <span id="commission-percent">3%</span></span>
+      </label>
+      <input type="range" id="commission-slider" min="1" max="6" step="0.5" value="3" style="width:90%;">
+      
+      <!-- Result display -->
+      <div class="result" id="commission-result" style="margin-top:1em;">
+        Estimated commission: $19,500<br>
+        You net roughly: $630,500
+      </div>
+    </div>
+
+    <!-- House value input and calculate button in a wider card -->
+    <div class="card" style="margin-top:1em; max-width:1200px; width:100%;">
+      <h3>Estimated Net Profit</h3>
+      <label style="display:flex; align-items:center; gap:0.5em;">
+        Home Value: $<input type="number" id="home-value" value="650000" style="width:130px;padding:0.7em;">
+      </label><br><br>
+      <button onclick="calculateNetProfit()">Calculate Net Profit</button>
+      <div id="net-profit-output" style="margin-top:1em;font-weight:bold;">
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section" style="margin-top:2em;">
+      <button class="faq-title" onclick="toggleFAQ()" style="background:#0077cc; color:#fff; border:none; padding:0.7em 1.2em; border-radius:4px; cursor:pointer;">FAQ about deciding to sell ▼</button>
+      <div class="faq-content" id="faq-content" style="display:none; margin-top:1em;">
+        <p><strong>Q: How do I know if now is the right time?</strong><br>
+        A: Review market trends, your finances, and personal goals.</p>
+        <p><strong>Q: Should I wait for prices to rise?</strong><br>
+        A: Consider your timeline and how waiting affects your costs and stress.</p>
+      </div>
+    </div>
+
+    <div class="ai-book-prompt" style="margin-top:2em;">
+      Not sure? <b>Check below for Checklists and tips</b>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <a href="profile.html">Profile</a> |
+    <a href="pricing.html">Pricing</a> |
+    <a href="terms.html">Terms</a> |
+    <a href="privacy.html">Privacy</a>
+    <p>© 2024 MyHomeSellApp</p>
+  </footer>
+</div>
+
+<script>
+  // Slider: Realtor commission
+  const commissionSlider = document.getElementById('commission-slider');
+  const percentSpan = document.getElementById('commission-percent');
+  const resultDiv = document.getElementById('commission-result');
+
+  commissionSlider.addEventListener('input', function() {
+    percentSpan.textContent = this.value + '%';
+    const homeVal = parseFloat(document.getElementById('home-value').value) || 0;
+    const commission = homeVal * (parseFloat(this.value) / 100);
+    const net = homeVal - commission;
+    resultDiv.innerHTML = `Estimated commission: $${commission.toLocaleString()}<br>You net roughly: $${net.toLocaleString()}`;
+  });
+
+  // Net profit calculation
+  function calculateNetProfit() {
+    const homeVal = parseFloat(document.getElementById('home-value').value) || 0;
+    const commissionPercent = parseFloat(commissionSlider.value) || 3;
+    const commission = homeVal * (commissionPercent / 100);
+    const net = homeVal - commission;
+    document.getElementById('net-profit-output').innerHTML = `After paying ${commissionPercent}% commission, your net is approximately: <b>$${net.toLocaleString()}</b>`;
+  }
+
+  // FAQ toggle
+  function toggleFAQ() {
+    const content = document.getElementById('faq-content');
+    if (content.style.display === 'none') {
+      content.style.display = 'block';
+    } else {
+      content.style.display = 'none';
+    }
+  }
+
+  // Initialize slider display
+  const slider = document.getElementById('commission-slider');
+  const displayPercent = document.getElementById('commission-percent');
+  function updateSliderDisplay() {
+    displayPercent.textContent = slider.value + '%';
+  }
+  slider.addEventListener('input', () => {
+    updateSliderDisplay();
+    // also update the commission estimate live
+    const homeVal = parseFloat(document.getElementById('home-value').value) || 0;
+    const commission = homeVal * (parseFloat(slider.value) / 100);
+    const net = homeVal - commission;
+    document.getElementById('commission-result').innerHTML = `Estimated commission: $${commission.toLocaleString()}<br>You net roughly: $${net.toLocaleString()}`;
+  });
+  updateSliderDisplay();
+
+  // Initialize net profit on load
+  calculateNetProfit();
+</script>
+</body>
+</html>
