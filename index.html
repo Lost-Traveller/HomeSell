@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeSell NZ - Your Home Selling Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #1b4e8a;
+  --light-blue: #eaf2fb;
+  --accent: #ff7f50;
+  --grey-bg: #f7fafd;
+  --prepare: #f8e9e0;
+  --market: #e6f3f8;
+  --list: #e9f8f2;
+  --openhome: #f3e8fa;
+  --negotiate: #e8f6fa;
+  --sell: #fffbe8;
+  --move: #eaf0fd;
+  --card-shadow: 0 4px 32px 0 rgba(27,78,138,0.08);
+  --card-radius: 18px;
+}
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background: var(--grey-bg);
+  min-height: 100vh;
+  color: var(--blue);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 14px 40px 14px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.header h1 {
+  font-size: 2.7rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+}
+.header p {
+  font-size: 1.22rem;
+  color: #223;
+  opacity: 0.8;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 38px;
+}
+.toggle-btn {
+  padding: 12px 28px;
+  background: var(--light-blue);
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 32px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1.07rem;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 600;
+}
+.toggle-btn.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+.toggle-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Journey Map View */
+.journey-map {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+}
+.journey-stage {
+  background: #fff;
+  border-radius: var(--card-radius);
+  padding: 32px 18px 28px 18px;
+  text-align: center;
+  transition: all 0.28s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  min-height: 320px;
+}
+.journey-stage:hover {
+  background: var(--light-blue);
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 12px 36px rgba(27,78,138,0.14);
+}
+.stage-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.45rem;
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 2px 12px rgba(27,78,138,0.09);
+}
+.stage-title {
+  font-size: 1.16rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.stage-description {
+  color: #223;
+  margin-bottom: 22px;
+  line-height: 1.5;
+  font-size: 1.01rem;
+}
+
+.stage-subnav {
+  display: none;
+  text-align: left;
+  margin-top: 22px;
+  padding-top: 16px;
+  /* Different bg color for each section */
+  border-radius: 14px;
+}
+.stage-subnav.show { display: block; animation: slideDown 0.28s ease;}
+/* Sleek modern subnav buttons */
+.subnav-item {
+  display: block;
+  margin: 0 0 14px 0;
+  padding: 18px 30px;
+  font-size: 1.09rem;
+  font-weight: 600;
+  color: var(--blue);
+  background: #fff;
+  border: none;
+  border-radius: 11px;
+  box-shadow: 0 2px 16px rgba(27,78,138,0.07);
+  transition: background 0.16s, color 0.16s, box-shadow 0.16s, transform 0.13s;
+  text-align: left;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  outline: none;
+  text-decoration: none;
+  border-left: 7px solid transparent;
+}
+.subnav-item:last-child { margin-bottom: 0; }
+.subnav-item:hover, .subnav-item:focus {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(27,78,138,0.14);
+  border-left: 7px solid var(--accent);
+  transform: translateY(-3px) scale(1.015);
+}
+
+/* Section color backgrounds for subnavs */
+.stage-1 .stage-subnav { background: var(--light-blue);}
+.stage-2 .stage-subnav { background: var(--prepare);}
+.stage-3 .stage-subnav { background: var(--market);}
+.stage-4 .stage-subnav { background: var(--list);}
+.stage-5 .stage-subnav { background: var(--openhome);}
+.stage-6 .stage-subnav { background: var(--negotiate);}
+.stage-7 .stage-subnav { background: var(--sell);}
+.stage-8 .stage-subnav { background: var(--move);}
+
+/* Quick Access Sidebar */
+.quick-access {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  z-index: 1000;
+}
+.quick-access h4 {
+  color: var(--blue);
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.08rem;
+}
+.quick-link {
+  display: block;
+  padding: 10px 15px;
+  margin: 5px 0;
+  color: var(--blue);
+  background: var(--light-blue);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
+  text-align: center;
+  font-weight: 600;
+}
+.quick-link:hover {
+  background: var(--blue);
+  color: #fff;
+  transform: translateX(5px);
+}
+/* Animations */
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0;}
+  to { opacity: 1; max-height: 300px;}
+}
+/* Responsive */
+@media (max-width: 1100px) {
+  .journey-map { grid-template-columns: repeat(2, 1fr);}
+}
+@media (max-width: 768px) {
+  .journey-map { grid-template-columns: 1fr;}
+  .quick-access { display: none;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <h1>HomeSell NZ</h1>
+    <p>Your complete guide to selling your home in New Zealand</p>
+  </header>
+
+  <div class="view-toggle">
+    <button class="toggle-btn active" onclick="switchView('journey')">🗺️ Journey Map</button>
+    <button class="toggle-btn" onclick="switchView('timeline')">📍 Timeline Roadmap</button>
+  </div>
+
+  <!-- Journey Map View -->
+  <div id="journey-view" class="roadmap-view active">
+    <div class="journey-map">
+      <!-- For each subnav-item, replace the href with your real page link -->
+      <div class="journey-stage stage-1" onclick="toggleSubnav(this)">
+        <div class="stage-icon">🎯</div>
+        <div class="stage-title">Decide</div>
+        <div class="stage-description">Make the informed decision to sell</div>
+        <div class="stage-subnav">
+          <!-- Put your actual HTML page links in the href below -->
+          <a href="decide.html" class="subnav-item">Where will you go? Wellington Suburbs</a>
+          <a href="decide1.html" class="subnav-item">Calculate and Invest Retirement Equity</a>
+          <a href="decide2.html" class="subnav-item">Seller Readiness Quiz</a>
+          <a href="decide3.html" class="subnav-item">Explore Alternative Options</a>
+          <a href="decide4.html" class="subnav-item">Realtor Commissions</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-2" onclick="toggleSubnav(this)">
+        <div class="stage-icon">🔧</div>
+        <div class="stage-title">Prepare</div>
+        <div class="stage-description">Get property and paperwork ready</div>
+        <div class="stage-subnav">
+          <a href="prepare1.html" class="subnav-item">Your Document Centre</a>
+          <a href="prepare2.html" class="subnav-item">Property Assessment Guide</a>
+          <a href="prepare3.html" class="subnav-item">Strategic Improvement Slider</a>
+          <a href="prepare4.html" class="subnav-item">Home Improvement Finance</a>
+          <a href="prepare5.html" class="subnav-item">Professional Team Assembly</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-3" onclick="toggleSubnav(this)">
+        <div class="stage-icon">📱</div>
+        <div class="stage-title">Market</div>
+        <div class="stage-description">Create compelling marketing strategy</div>
+        <div class="stage-subnav">
+          <a href="market1.html" class="subnav-item">Buyer Targeting Workshop</a>
+          <a href="market2.html" class="subnav-item">Visual Marketing Suite</a>
+          <a href="market3.html" class="subnav-item">Social Media Campaigns</a>
+          <a href="market4.html" class="subnav-item">Unique Selling Proposition</a>
+          <a href="market5.html" class="subnav-item">Marketing Timeline Planner</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-4" onclick="toggleSubnav(this)">
+        <div class="stage-icon">📋</div>
+        <div class="stage-title">List</div>
+        <div class="stage-description">Set strategy and go live</div>
+        <div class="stage-subnav">
+          <a href="list1.html" class="subnav-item">Smart Pricing Strategy</a>
+          <a href="list2.html" class="subnav-item">Sale Method Selector</a>
+          <a href="list3.html" class="subnav-item">Agent Selection Guide</a>
+          <a href="list4.html" class="subnav-item">Optimise Your Listing</a>
+          <a href="list5.html" class="subnav-item">Social Media Calendar and Platform Distribution</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-5" onclick="toggleSubnav(this)">
+        <div class="stage-icon">🏠</div>
+        <div class="stage-title">Open Home</div>
+        <div class="stage-description">Showcase and attract buyers</div>
+        <div class="stage-subnav">
+          <a href="openhome1.html" class="subnav-item">Day-of Preparation Checklist</a>
+          <a href="openhome2.html" class="subnav-item">Visitor Management System</a>
+          <a href="openhome3.html" class="subnav-item">Presentation Materials</a>
+          <a href="openhome4.html" class="subnav-item">Hosting Mastery Guide</a>
+          <a href="openhome5.html" class="subnav-item">Strategic Follow-up System</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-6" onclick="toggleSubnav(this)">
+        <div class="stage-icon">🤝</div>
+        <div class="stage-title">Negotiate</div>
+        <div class="stage-description">Secure the best possible deal</div>
+        <div class="stage-subnav">
+          <a href="negotiate1.html" class="subnav-item">Offer Evaluation Matrix</a>
+          <a href="negotiate2.html" class="subnav-item">Buyer Assessment Tools</a>
+          <a href="negotiate3.html" class="subnav-item">Counter-offer Strategy</a>
+          <a href="negotiate4.html" class="subnav-item">Negotiation Tactics</a>
+          <a href="negotiate5.html" class="subnav-item">Agreement Finalization</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-7" onclick="toggleSubnav(this)">
+        <div class="stage-icon">📝</div>
+        <div class="stage-title">Sell</div>
+        <div class="stage-description">Navigate to settlement</div>
+        <div class="stage-subnav">
+          <a href="sell1.html" class="subnav-item">Inspection Management</a>
+          <a href="sell2.html" class="subnav-item">Complete Your Disclosure Paperwork</a>
+          <a href="sell3.html" class="subnav-item">Prepare Your Sale Settlement</a>
+          <a href="sell4.html" class="subnav-item">Appraisal Process (if needed)</a>
+          <a href="sell5.html" class="subnav-item">Final Documentation</a>
+        </div>
+      </div>
+      <div class="journey-stage stage-8" onclick="toggleSubnav(this)">
+        <div class="stage-icon">📦</div>
+        <div class="stage-title">Move</div>
+        <div class="stage-description">Execute transition smoothly</div>
+        <div class="stage-subnav">
+          <a href="move1.html" class="subnav-item">Settlement Slider</a>
+          <a href="move2.html" class="subnav-item">Address Change Checklist</a>
+          <a href="move3.html" class="subnav-item">Moving Logistics Planner</a>
+          <a href="move4.html" class="subnav-item">Coordinate Your Insurance</a>
+          <a href="move5.html" class="subnav-item">Transition to your New Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function switchView(viewType) {
+  document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.roadmap-view').forEach(view => view.classList.remove('active'));
+  if (viewType === 'timeline') {
+    document.getElementById('timeline-view').classList.add('active');
+  } else {
+    document.getElementById('journey-view').classList.add('active');
+  }
+}
+function toggleSubnav(element) {
+  const subnav = element.querySelector('.stage-subnav');
+  const allSubnavs = document.querySelectorAll('.stage-subnav');
+  allSubnavs.forEach(nav => {
+    if (nav !== subnav) nav.classList.remove('show');
+  });
+  subnav.classList.toggle('show');
+}
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.journey-stage')) {
+    document.querySelectorAll('.stage-subnav').forEach(nav => nav.classList.remove('show'));
+  }
+});
+</script>
+</body>
+</html>
